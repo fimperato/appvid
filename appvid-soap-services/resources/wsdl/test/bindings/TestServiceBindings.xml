@@ -1,0 +1,57 @@
+<jaxb:bindings 
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+	version="2.1">
+	
+	 <jaxb:globalBindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <jaxb:javaType
+            name="java.util.Calendar"
+            xmlType="xs:dateTime"
+            parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+            printMethod="javax.xml.bind.DatatypeConverter.printDateTime"
+        />
+        <!-- Commented out for demonstration    
+        <jaxb:javaType
+            name="java.util.Calendar"
+            xmlType="xs:date"
+            parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+            printMethod="javax.xml.bind.DatatypeConverter.printDate"> -->
+    </jaxb:globalBindings>
+    
+	<jaxb:bindings schemaLocation="../TestJaxbBindings_def_1.xsd">
+        by XSD the value range is limited to the integer range so map it there
+        <jaxb:bindings  node="//xs:element[@name='DemoIntegerBinding2']/xs:simpleType">
+        	<!--  to avoid auto generated Adapter1: -->
+            <xjc:javaType name="java.lang.Integer" 
+            	adapter="it.vid.soap.test.jaxb.adapter.Adapter1Integer" />
+<!--             <jaxb:javaType name="Integer" /> -->
+        </jaxb:bindings>
+    </jaxb:bindings>
+  
+	<jaxb:bindings schemaLocation="../TestJaxbBindings_def_1.xsd">
+	  <jaxb:bindings node="//xs:complexType[@name='foo']//xs:element[@name='map']">
+	    <jaxb:property>
+	      <jaxb:baseType name="java.util.HashMap&lt;String,String&gt;" />
+	    </jaxb:property>
+	  </jaxb:bindings>
+	</jaxb:bindings>
+	
+	<!-- complex map handling 
+	<jaxb:bindings schemaLocation="../TestJaxbBindings_def_1.xsd">
+        by XSD the value range is limited to the integer range so map it there
+        <jaxb:bindings  node="xs:complexType[@name='GadgetMapModeller']">
+            <xjc:javaType name="it.vid.soap.test.jaxb.adapter.complex.GadgetMap" 
+            	adapter="it.vid.soap.test.jaxb.adapter.complex.GadgetMapAdapter" />
+        </jaxb:bindings>
+    </jaxb:bindings> -->
+    
+    <jaxb:bindings schemaLocation="../TestJaxbBindings_def_1.xsd">
+	  <jaxb:bindings node="//xs:element[@name='company']//xs:element[@name='employees']">
+	   <jaxb:property>
+	    <jaxb:baseType name="it.vid.soap.test.jaxb.adapter.complex.EmployeeMap&lt;String,Employee&gt;" />
+	   </jaxb:property>
+	  </jaxb:bindings>
+	</jaxb:bindings>
+	
+ </jaxb:bindings>
